@@ -10,7 +10,7 @@
 spl_autoload_register(function ($className) {
 
     //project specific namespace prefix
-    $prefix = 'dokumentenFreigabe\\';
+    $prefix = 'contentfreigabe\backend\\';
     $baseDir = __DIR__ . '/';
     $len = strlen($prefix);
 

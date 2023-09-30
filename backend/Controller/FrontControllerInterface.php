@@ -1,6 +1,6 @@
 <?php
 
-namespace dokumentenFreigabe\Controller;
+namespace contentfreigabe\backend\Controller;
 
 interface FrontControllerInterface {
     public function setController($controller);

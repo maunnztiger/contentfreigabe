@@ -2,7 +2,5 @@
 
 require './autoload.php';
 
-use dokumentenFreigabe\Controller\FrontController;
-
-$controller = new FrontController();
+$controller = new \contentfreigabe\backend\Controller\FrontController();
 $controller->run();

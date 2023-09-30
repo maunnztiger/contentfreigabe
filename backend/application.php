@@ -1,7 +1,7 @@
 <?php
 
-namespace dokumentenFreigabe;
-use dokumentenFreigabe\Library\NotFoundException;
+namespace contentfreigabe\backend;
+use contentfreigabe\backend\Library\NotFoundException;
 
 class Application
 {
@@ -10,7 +10,7 @@ class Application
     {
 
         if (preg_match('/\W/', $className)) {
-            throw new Exception("illegal character found");
+            throw new \Exception("illegal character found");
         }
 
         $baseDir = __NAMESPACE__ . '\\Model\\';
@@ -29,7 +29,7 @@ class Application
     public static function getController(string $className){
 
         if (preg_match('/\W/', $className)) {
-            throw new Exception("illegal character found");
+            throw new \Exception("illegal character found");
         }
 
         $baseDir = __NAMESPACE__ . '\\Controller\\';

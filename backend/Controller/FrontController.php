@@ -1,11 +1,10 @@
 <?php
 
-namespace dokumentenFreigabe\Controller;
+namespace contentfreigabe\backend\Controller;
 
-use dokumentenFreigabe\Controller\FrontControllerInterface;
-use dokumentenFreigabe\Library\View;
-use dokumentenFreigabe\Library\NotFoundException;
-use dokumentenFreigabe\Application;
+use contentfreigabe\backend\Controller\FrontControllerInterface;
+use contentfreigabe\backend\Library\NotFoundException;
+use contentfreigabe\backend\Application;
 use ReflectionClass;
 
 
@@ -55,10 +54,10 @@ class FrontController implements FrontControllerInterface{
 
     public function setAction($action) {    
         $actionMethodName = $action. "Action";
-        $controllerClassName = '\\dokumentenFreigabe\\Controller\\'.ucfirst(strtolower($this->controller))."Controller";
+        $controllerClassName = '\\contentfreigabe\backend\\Controller\\'.ucfirst(strtolower($this->controller))."Controller";
         $reflector = new ReflectionClass($controllerClassName);
         if (!$reflector->hasMethod($actionMethodName)) {
-            throw new \dokumentenFreigabe\Library\NotFoundException(
+            throw new NotFoundException(
                 "The controller action '$action' has been not defined in '$controllerClassName'");
         }
         $this->action = $actionMethodName;
@@ -97,7 +96,7 @@ class FrontController implements FrontControllerInterface{
        
             
         }
-    } catch (\dokumentenFreigabe\Library\NotFoundException $e) {
+    } catch (NotFoundException $e) {
         http_response_code(404);
         echo 'Page not found: ' . $controllerName. '::' . $actionMethodName;
     } catch (\Exception $e) {
