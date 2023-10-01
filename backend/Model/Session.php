@@ -1,5 +1,5 @@
 <?php
-namespace dokumentenFreigabe\Model;
+namespace contentfreigabe\backend\Model;
 
 class Session
 {

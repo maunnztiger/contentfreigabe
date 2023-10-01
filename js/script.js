@@ -10,10 +10,10 @@ class Model {
 
       jQuery(document).ready(function($)
       {
-        var path = './images/ncis.jpg'
+        var path = '../images/ncis.jpg'
               $.ajax({
                   type: 'POST',
-                  url: 'http://localhost/dokumentenFreigabe-backend/index/index',
+                  url: 'http://localhost/contentfreigabe/backend/index/index',
                   dataType: 'json',
                   encode: true,
                   headers: {
@@ -72,7 +72,7 @@ class View {
   showLoginpup(data){
 
     data.forEach(element => {
-      if(element = "./images/ncis.jpg"){
+      if(element = "../images/ncis.jpg"){
         this.headerpic = this.createElement("img", "titlepic");
         this.headerpic.src = element;
        
@@ -101,12 +101,12 @@ class View {
         password: password
       }
       console.log(params);
-      var url = "http://localhost/dokumentenFreigabe-backend/index/dispatchViews";
+      var url = "http://localhost/contentfreigabe/backend/index/dispatchViews";
       var posting = $.post(url, params);
       posting.done(function(data){
         console.log('done'+JSON.parse(data));
         setTimeout(function(){
-          document.location.href = "http://localhost/dokumentenFreigabe-frontend/"+JSON.parse(data)+"/"+JSON.parse(data)+"View.html"
+          document.location.href = "http://localhost/contentfreigabe/"+JSON.parse(data)+"/"+JSON.parse(data)+"View.html"
         },500);
       });
 

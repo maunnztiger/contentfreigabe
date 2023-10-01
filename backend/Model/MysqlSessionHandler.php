@@ -1,9 +1,10 @@
 <?php
-namespace dokumentenFreigabe\Model;
+namespace contentfreigabe\backend\Model;
 
-use dokumentenFreigabe\DataLayer\Db;
-use dokumentenFreigabe\DataLayer\Model;
-use dokumentenFreigabe\Model\Session;
+use contentfreigabe\backend\DataLayer\Db;
+use contentfreigabe\backend\DataLayer\Model;
+use contentfreigabe\backend\Model\Session;
+use contentfreigabe\backend\Library\NotFoundException;
 use PDO;
 
 class MysqlSessionHandler extends Model
@@ -52,13 +53,13 @@ class MysqlSessionHandler extends Model
 
         try {
             $model = new Model();
-            $this->sessionId = $model->select('session_id')
+            return $this->sessionId = $model->select('session_id')
                 ->from('php_session')
                 ->join('user')->on('php_session.session_value', 'user.password')
                 ->where('user_id_fk', ':id')
                 ->executeQuery(':id', $this->userId)
                 ->as_object()->session_id;
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
 
             echo "Error : Session-id could not be investigated", $e->getMessage();
         }
@@ -93,7 +94,7 @@ class MysqlSessionHandler extends Model
             $count = $stmt->rowCount();
            
 
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             echo "Ein Datenbankfehler ist aufgetreten", $e->getMessage();
         }
     }
@@ -104,15 +105,15 @@ class MysqlSessionHandler extends Model
 
             $session_id = $this->findSessionId()->session_id;
             $model = new Model();
-            $this->result = $model->select(array(
+            $result = $model->select(array(
                 'session_value',
 
             ))->from($this->tableNames)->where('session_id', ':session_id')
                 ->executeQuery(':session_id', $session_id)->as_object();
 
-            return $this->result;
+            return $result;
 
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             echo "Daten aus Tabelle php_session konnten nicht ausgelesen werden.", $e->getMessage();
         }
     }
@@ -128,7 +129,7 @@ class MysqlSessionHandler extends Model
                 ->where('session_id', ':session_id')
                 ->executeQuery(':session_id', $this->sessionId);
 
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             echo "Sesson could not be deleted", $e->getMessage();
         }
 

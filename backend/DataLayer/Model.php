@@ -3,9 +3,9 @@
  * Model Class
  */
 
-namespace dokumentenFreigabe\DataLayer;
+namespace contentfreigabe\backend\DataLayer;
 
-use dokumentenFreigabe\DataLayer\Db;
+use contentfreigabe\backend\DataLayer\Db;
 use PDO;
 
 @define(SQL_COMMAND_SELECT, 'SELECT');
@@ -164,7 +164,7 @@ class Model extends Db
 
     /**
      *
-     * @throws PDOException
+     * @throws \PDOException
      * @return mixed
      */
     public function table()
@@ -177,13 +177,13 @@ class Model extends Db
         try
         {
             if (!is_array($this->table_names)) {
-                throw new PDOException(__CLASS__ . '::' . __FUNCTION__ . '(): Model ' . $klassenName . ' has no Table property!');
+                throw new \PDOException(__CLASS__ . '::' . __FUNCTION__ . '(): Model ' . $klassenName . ' has no Table property!');
 
             } else {
                 $table_name = $objekt->table_names[0];
             }
 
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             echo $e;
         }
 
@@ -323,11 +323,11 @@ class Model extends Db
                     $this->table_primary_keys[$this->class] = $this->table_primary_keys;
                 } else {
 
-                    throw new PDOException(_CLASS_ . '::' . __FUNCTION__ . '()Model' . $this->class . ' hat keinen ensprechenden Prim�rschl�ssel!');
+                    throw new \PDOException(__CLASS__ . '::' . __FUNCTION__ . '()Model' . $this->class . ' hat keinen ensprechenden Prim�rschl�ssel!');
                 }
 
             }
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             //Errorhandler::findeFehler($e);
         }
 
@@ -354,11 +354,11 @@ class Model extends Db
                     $this->table_properties[$this->class] = $this->table_properties;
                 } else {
 
-                    throw new PDOException(_CLASS_ . '::' . __FUNCTION__ . '()Model' . $this->class . ' hat keine entsprechenden Properties!');
+                    throw new \PDOException(__CLASS__ . '::' . __FUNCTION__ . '()Model' . $this->class . ' hat keine entsprechenden Properties!');
                 }
 
             }
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             //Errorhandler::findeFehler($e);
         }
 
@@ -380,7 +380,7 @@ class Model extends Db
         try {
             if (empty($spalte1) || empty($spalte2)) {
 
-                throw new PDOException(__CLASS__ . '::' . __FUNCTION__ . '(): Erforderlicher Parameter nicht gegeben!');
+                throw new \PDOException(__CLASS__ . '::' . __FUNCTION__ . '(): Erforderlicher Parameter nicht gegeben!');
             }
 
             if (!empty($spalte1) && !empty($spalte2)) {
@@ -389,13 +389,13 @@ class Model extends Db
                 $spalten_array2 = explode('.', $spalte2);
 
                 if (count($spalten_array1) == 1) {
-                    throw new PDOException(__CLASS . '::' . __FUNCTION__ . '(): Wert f�r Spalte 1"' . $spalte1 . '" muss im Format "table_name.row" angegeben werden.');
+                    throw new \PDOException(__CLASS__ . '::' . __FUNCTION__ . '(): Wert f�r Spalte 1"' . $spalte1 . '" muss im Format "table_name.row" angegeben werden.');
                 } else {
                     $spalte1 = $this->backticks($spalten_array1[0]) . '.' . $this->backticks($spalten_array1[1]);
                 }
 
                 if (count($spalten_array2) == 1) {
-                    throw new PDOException(__CLASS . '::' . __FUNCTION__ . '(): Wert f�r Spalte 2"' . $spalte2 . '" muss im Format "table_name.row" angegeben werden.');
+                    throw new \PDOException(__CLASS__ . '::' . __FUNCTION__ . '(): Wert f�r Spalte 2"' . $spalte2 . '" muss im Format "table_name.row" angegeben werden.');
                 } else {
                     $spalte2 = $this->backticks($spalten_array2[0]) . '.' . $this->backticks($spalten_array2[1]);
                 }
@@ -404,7 +404,7 @@ class Model extends Db
 
             }
 
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             echo $e;
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace dokumentenFreigabe\DataLayer;
+namespace contentfreigabe\backend\DataLayer;
 
 use PDO;
 
@@ -19,7 +19,7 @@ abstract class Db
 
                 self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 self::$instance->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-            } catch (PDOException $e) {
+            } catch (\PDOException $e) {
 
                 echo "Keine Verbindung zur Datenbank möglich: %s", $e->getMessage();
 

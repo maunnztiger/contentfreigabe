@@ -6,7 +6,7 @@ class Model {
     
     getData(callback){
      
-      fetch('http://localhost/dokumentenFreigabe-backend/Index/formular',{
+      fetch('http://localhost/contentfreigabe/backend/Index/formular',{
         method: 'GET',
        })
       .then(response => response.json())    
@@ -57,7 +57,7 @@ class View {
                     var form=$(this);
                     $.ajax({
                         type: 'POST',
-                        url: 'http://localhost/dokumentenFreigabe-backend/index/dispatchViews',
+                        url: 'http://localhost/contentfreigabe/backend/index/dispatchViews',
                         data : form.serialize(),
                         dataType: 'json',
                         encode: true
@@ -65,7 +65,7 @@ class View {
                         // Aktionen bei Erfolg
                         console.log('done: '+data);
                         setTimeout(function(){
-                            document.location.href = "http://localhost/dokumentenFreigabe-frontend/"+data+"/"+data+"View.html"
+                            document.location.href = "http://localhost/contentfreigabe/"+data+"/"+data+"View.html"
                           },500);
                     }).fail(function(data) {
                         // Aktionen bei einem Fehler

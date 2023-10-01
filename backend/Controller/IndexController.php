@@ -1,7 +1,7 @@
 <?php
-namespace dokumentenFreigabe\Controller;
+namespace contentfreigabe\backend\Controller;
 
-use dokumentenFreigabe\Application;
+use contentfreigabe\backend\Application;
 use ZipArchive;
 use DOMDocument;
 
@@ -377,7 +377,8 @@ class IndexController
                         $zip->close();
                         // Load XML from a string
                         // Skip errors and warnings
-                        $xml = DOMDocument::loadXML($data, LIBXML_HTML_NOIMPLIED  | LIBXML_HTML_NODEFDTD);
+                        $dom = new DOMDocument;
+                        $xml = $dom->loadXML($data, LIBXML_HTML_NOIMPLIED  | LIBXML_HTML_NODEFDTD);
                         // Return data without XML formatting tags
             
                         $xmldata = $xml->saveXML();
@@ -428,7 +429,8 @@ class IndexController
                           $zip->close();
                           // Load XML from a string
                           // Skip errors and warnings
-                          $xml = DOMDocument::loadXML($data, LIBXML_HTML_NOIMPLIED  | LIBXML_HTML_NODEFDTD);
+                          $dom = new DOMDocument;
+                          $xml = $dom->loadXML($data, LIBXML_HTML_NOIMPLIED  | LIBXML_HTML_NODEFDTD);
                           // Return data without XML formatting tags
               
                           $xmldata = $xml->saveXML();

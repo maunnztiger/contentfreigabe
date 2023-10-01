@@ -36,6 +36,7 @@ class FrontController implements FrontControllerInterface{
         $controllerName = (isset($urlparts[0]) && $urlparts[0] ? $urlparts[0] : 'index');
         $actionName = (isset($urlparts[1]) && $urlparts[1] ? $urlparts[1] : 'index');
 
+
         if(isset($controllerName)){
             $this->setController($controllerName);
         }
@@ -54,6 +55,7 @@ class FrontController implements FrontControllerInterface{
 
     public function setAction($action) {    
         $actionMethodName = $action. "Action";
+    
         $controllerClassName = '\\contentfreigabe\backend\\Controller\\'.ucfirst(strtolower($this->controller))."Controller";
         $reflector = new ReflectionClass($controllerClassName);
         if (!$reflector->hasMethod($actionMethodName)) {
@@ -67,39 +69,18 @@ class FrontController implements FrontControllerInterface{
 
     public function run(){
     try{
-        
-       if(!isset($_SESSION)){
-           session_start();
-       }
-       
-       
-        if(isset($_SESSION['dataObj'])){
-            $dataObj = $_SESSION['dataObj'] ;
-            $this->permission = $dataObj->get('permission');
-        }
- 
-           
-        
- 
-       
-        if((!isset($this->permission) && isset($this->permission) !== 'Admin' && $this->controller == 'admin') ||
-          (!isset($this->permission) && isset($this->permission) !== 'Employee' && $this->controller == 'employee')  || 
-          (!isset($this->permission) && isset($this->permission) !== 'Customer' && $this->controller == 'customer') ) {
-            http_response_code(403);
-            echo 'No Permission to access this View';
-        } else {
             $controllerName = ucfirst($this->controller.'Controller');
             $controller = Application::getController($controllerName);
-            $actionMethodName = $this->action;
-            $controller->$actionMethodName();
+            $actionMethod = $this->action;
+            $controller->$actionMethod();
             //echo ini_get('post_max_size');
        
             
-        }
-    } catch (NotFoundException $e) {
+    }
+        catch (NotFoundException $e) {
         http_response_code(404);
-        echo 'Page not found: ' . $controllerName. '::' . $actionMethodName;
-    } catch (\Exception $e) {
+        echo 'Page not found: ' . $controllerName. '::' . $this->action;
+    }   catch (\Exception $e) {
         http_response_code(500);
         echo 'Exception: ' . $e->getMessage() . ' ' . $e->getTraceAsString();
     }
